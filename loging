@@ -1,0 +1,20 @@
+# coding=utf-8
+from gymed.fanfa import BasePage
+
+class log(BasePage):
+    user = "xpath=>//*[@id='app']/section/section/section/div/div/div/div/div/div[2]/input" #用户名
+    passwd = "xpath=>//*[@id='app']/section/section/section/div/div/div/div/div/div[3]/div/input"#密码
+    LG = "xpath=>//*[@id='app']/section/section/section/div/div/div/div/div/button"#登陆按钮
+    wenzi= "//*[@id='app']/section/section/section/div/div/div/div/div/div[1]"#新建挂号按钮
+
+    def user1(self, text):
+        self.type(self.user, text)
+
+    def passwd1(self, text):
+        self.type(self.passwd, text)
+
+    def LG1(self):
+        self.click(self.LG)
+
+
+
