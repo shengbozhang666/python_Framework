@@ -1,0 +1,17 @@
+#coding=utf-8
+import unittest
+from HTMLTestRunner_cn import HTMLTestRunner
+import time
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+case_path = r'C:\Users\Administrator\PycharmProjects\gymed\testuits'
+case_list = unittest.defaultTestLoader.discover(case_path,'test*.py')
+report_path = r'C:\Users\Administrator\PycharmProjects\gymed\Screenshots'
+now = time.strftime('%Y%m%d%H%M%S')  # 获取当前时间，是一个字符串
+report_file = report_path+r'\%s_report.html' % now
+
+with open(report_file,'w') as f:
+    runner = HTMLTestRunner(stream=f, title=u'5级医疗项目自动化测试报告', description=u'测试环境：Windows 7 + Chrome 67')
+    runner.run(case_list)
