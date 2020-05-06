@@ -35,8 +35,8 @@ class Village_doctor_xiang(unittest.TestCase):
         lo = log(self)
         a = lo.wenzi
         print a
-        lo.user1('18702540853')
-        lo.passwd1('admin123')
+        lo.user1('username')
+        lo.passwd1('password')
         lo.sleep(1)
         lo.LG1()
         # a=lo.wenzi1
