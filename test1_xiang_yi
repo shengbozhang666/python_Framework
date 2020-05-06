@@ -1,0 +1,87 @@
+# coding=utf-8
+from time import sleep
+import unittest
+from gymed.openchrome import BrowserEngine
+from gymed.fanfa import BasePage
+from gymed.logger import Logger
+from pageobjects.loging import log
+logger = Logger(logger="Village_doctor_xiang").getlog()
+
+class Village_doctor_xiang(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        #base = BasePage(cls.driver)
+        browse = BrowserEngine(cls)
+        cls.driver = browse.get_browser()
+        cls.driver.get(url='https://www.pyhtech.com/gymed/html/doctor/index.html#/login')
+        # base.get_windows_img()
+    @classmethod
+    def tearDownClass(cls):
+        sleep(0.5)
+        cls.driver.quit()
+
+    # def add_img(self):
+    #     self.imgs = []
+    #     self.imgs.append(self.driver.get_screenshot_as_base64())
+    #     return True
+
+    # def setUp(self):
+    #     # 在是python3.x 中，如果在这里初始化driver ，因为3.x版本 unittest 运行机制不同，会导致用力失败时截图失败
+    #
+
+    def test1_xiang(self):
+        base = BasePage(self.driver)
+        lo = log(self)
+        a = lo.wenzi
+        print a
+        lo.user1('18702540853')
+        lo.passwd1('admin123')
+        lo.sleep(1)
+        lo.LG1()
+        # a=lo.wenzi1
+        # print a
+        logger.info(u'登陆乡医成功')
+        base.add_img()
+        lo.sleep(1)
+
+
+    def test2_pingfen(self):
+        test4_Entry=BasePage(self.driver)
+        self.driver.find_element_by_xpath('//*[@id="app"]/section/section/aside/ul/li[2]/div/span').click()
+        sleep(1)
+        self.driver.find_element_by_xpath('//*[@id="app"]/section/section/aside/ul/li[2]/ul/li/ul/li[3]').click()
+        sleep(1)
+        i=1
+        for i in range(1,11):
+            k = ('//*[@id="app"]/section/section/section/div[2]/div/div[5]/div[2]/table/tbody/tr[{}]/td[9]').format(i)
+            e = ('//*[@id="app"]/section/section/section/div[2]/div/div[3]/table/tbody/tr[{}]/td[7]').format(i)
+            e1 = self.driver.find_element_by_xpath(e).text
+            if e1==u'':
+                self.driver.find_element_by_xpath(k).click()
+                sleep(1)
+                h = self.driver.find_element_by_xpath('//*[@id="app"]/section/section/section/main/div[1]/div[2]/p').text
+                print h
+                self.driver.find_element_by_xpath('//*[@id="app"]/section/section/section/main/div[1]/button/span').click()
+                sleep(1)
+                self.driver.find_element_by_xpath('//*[@id="app"]/section/section/section/div/div/div[2]/div[2]/span[3]').click()
+                self.driver.find_element_by_xpath('//*[@id="app"]/section/section/section/div/div/div[3]/span/button/span').click()
+                sleep(1)
+                logger.info(u'评分远程培训成功')
+                test4_Entry.add_img()
+                break
+        sleep(1)
+        #判断元素是否在页面上
+        res = test4_Entry.isElementPresent('xpath','//*[@id="app"]/section/section/section/main/div[1]/button/span')
+        if res is True:
+            logger.error(u'评分按钮存在，评分失败')
+        else:
+            logger.info(u'评分按钮消失，评分成功')
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+
+
+
